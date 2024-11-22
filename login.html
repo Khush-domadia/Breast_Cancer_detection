@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Login</title>
+    <!-- CSS Links -->
+    <link rel="stylesheet"
+          href="../../static/adminResourses/css/materialdesignicons.min.css">
+    <link rel="stylesheet"
+          href="../../static/adminResourses/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../static/adminResourses/css/style.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon"
+          href="../../static/adminResourses/images/favicon.png"/>
+    <!-- Custom CSS for background image with opacity -->
+    <style>
+        body {
+            background-image:
+                    url('../../static/adminResourses/images/image_66.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-form-light {
+            background-color: rgba(245, 245, 245, 0.3);
+            /* Semi-transparent background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .auth-form-light .brand-logo img {
+            max-width: 185px;
+            margin-bottom: 20px;
+        }
+
+        .auth-form-light h4 {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .auth-form-light h6 {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .auth-form-light .form-login {
+            border-radius: 20px;
+            padding: 10px; /* Adjusted padding */
+            margin-bottom: -5px; /* Reduced margin */
+            border: 1px solid #ccc;
+        }
+
+        .auth-form-light .btn-primary {
+            border-radius: 20px;
+            padding: 12px;
+            width: 100%;
+            margin-top: 5px; /* Reduced margin */
+        }
+
+        .auth-form-light .text-danger {
+            margin-top: 3px; /* Reduced margin top */
+            font-size: 10px; /* Reduced font size */
+            color: #dc3545;
+            min-height: 14px; /* Reduced height for error box */
+            padding: 5px; /* Reduced padding for error box */
+            display: block; /* Ensure error messages take full width */
+            text-align: left; /* Align error messages to the left */
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="auth-form-light">
+    <div class="brand-logo">
+        <img src="../../static/adminResourses/images/logo-color.svg"
+             alt="logo">
+    </div>
+    <!--    <h4>Hello! Let's get started</h4>-->
+    <h6 class="font-weight-light">Sign in to continue.</h6>
+    <form id="loginForm" action="/login" method="POST"
+          onsubmit="return validateForm()">
+        <div class="form-group">
+            <input type="email" class="form-control form-login" id="userName"
+                   name="userName" placeholder="Username">
+            <div class="text-danger" id="usernameError"
+                 style="font-size: 15px"></div>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control form-login" id="pw"
+                   name="pw"
+                   placeholder="Password">
+            <div class="text-danger" id="passwordError"
+                 style="font-size: 15px"></div>
+        </div>
+        <button type="submit"
+                class="btn btn-primary btn-lg font-weight-medium auth-form-btn">
+            SIGN IN
+        </button>
+        <div class="alert mt-3" id="error-message"
+             style="display: none;"></div>
+    </form>
+</div>
+
+<!-- JavaScript Links -->
+<script src="../../static/adminResourses/js/vendor.bundle.base.js"></script>
+<!-- Custom script to validate form inputs and hide error message -->
+<script>
+    // Function to validate form and show error messages
+    function validateForm() {
+        var userName = document.getElementById("userName").value;
+        var password = document.getElementById("pw").value;
+
+        // Resetting previous error messages
+        document.getElementById("usernameError").innerHTML = "";
+        document.getElementById("passwordError").innerHTML = "";
+        document.getElementById("error-message").style.display = "none";
+
+        // Validation for username
+        if (userName.trim() === "") {
+            document.getElementById("usernameError").innerHTML = "Username is required.";
+            return false;
+        }
+
+        // Validation for password
+        if (password.trim() === "") {
+            document.getElementById("passwordError").innerHTML = "Password is required.";
+            return false;
+        }
+
+        // Check if username and password are correct
+        if (userName !== "admin@gmail.com" || password !== "admin12345") {
+            document.getElementById("error-message").innerHTML = "Incorrect Credentials.";
+            document.getElementById("error-message").style.display = "block";
+            return false;
+        }
+
+        return true; // Form will submit if all validations pass
+    }
+
+    // Event listeners to clear error messages on input
+    document.getElementById("userName").addEventListener("input", function () {
+        document.getElementById("usernameError").innerHTML = ""; // Clear username error message on input
+        document.getElementById("error-message").style.display = "none"; // Clear general error message on input
+    });
+
+    document.getElementById("pw").addEventListener("input", function () {
+        document.getElementById("passwordError").innerHTML = ""; // Clear password error message on input
+        document.getElementById("error-message").style.display = "none"; // Clear general error message on input
+    });
+
+    // Prevent form resubmission prompt on page reload
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+
+</body>
+</html>

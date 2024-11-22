@@ -1,0 +1,55 @@
+<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-between">
+        <a class="navbar-brand brand-logo" href="/admin/load_dashboard"><img
+                src="../../static/adminResourses/images/logo-white.svg"
+                alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini"
+           href="/admin/load_dashboard"><img
+                src="../../static/adminResourses/images/logo-icon.svg"
+                alt="logo" style="margin-left: -5px"/></a>
+
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
+        <div class="d-none d-lg-flex">
+            <button class="navbar-toggler navbar-toggler align-self-center"
+                    type="button" data-toggle="minimize">
+                <span class="mdi mdi-menu"></span>
+            </button>
+
+        </div>
+
+        <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+                <div class="nav-link" data-toggle="dropdown"
+                     id="profileDropdown">
+                    <span>Hi, <span
+                            class="nav-profile-name">Admin</span></span>
+                    <span
+                            class="user-icon"><i
+                            class="mdi mdi-account-outline"></i></span>
+                </div>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown user-profile-action border-0"
+                     aria-labelledby="profileDropdown">
+
+                    <form action="/logout" method="post">
+                        <div class="p-2">
+                            <button type="submit"
+                                    class="dropdown-item py-2 px-3 d-flex align-items-center justify-content-between rounded-lg">
+                                <span class="text-dark">Log Out</span>
+                                <i class="mdi mdi-logout ml-2 text-danger"
+                                   style="font-size: 1.2em;"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+                type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+        </button>
+    </div>
+</nav>

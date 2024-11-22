@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Perform Detection</title>
+    <!-- base:css -->
+    <link rel="stylesheet"
+          href="../../static/adminResourses/css/materialdesignicons.min.css">
+    <link rel="stylesheet"
+          href="../../static/adminResourses/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../static/adminResourses/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon"
+          href="../../static/adminResourses/images/favicon.png"/>
+
+    <style>
+        /* Custom CSS to remove grey color from upload image space */
+        .form-group input[type="text"].form-control {
+            background-color: transparent; /* Set background color to transparent */
+        }
+    </style>
+</head>
+<body class="sidebar-light">
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+
+    {% include 'admin/header.html' %}
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+
+        {% include 'admin/menu.html' %}
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row grid-margin">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header bg-gradient-danger">
+                                <h4 class="card-title m-0"> Add Detection </h4>
+                            </div>
+                            <div class="card-body">
+                                <form enctype="multipart/form-data"
+                                      id="uploadForm">
+                                    <div class="form-group">
+                                        <label for="patientName">Patient
+                                            Name:</label>
+                                        <input name="patientName" type="text"
+                                               id="patientName"
+                                               class="form-control form-control-lg"
+                                               placeholder="Patient Name"
+                                               style="height: 45px" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="photoUpload">Upload
+                                            Image:</label>
+                                        <div class="input-group">
+                                            <input type="text"
+                                                   class="form-control form-control-lg"
+                                                   placeholder="Choose Image"
+                                                   readonly
+                                                   style="flex: 1;
+                                                   height:45px;
+                                                   background-color: transparent;">
+                                            <div class="input-group-append">
+                                                <label for="photoUpload"
+                                                       class="file-upload-label btn btn-primary"
+                                                       style="height:45px;">Upload
+                                                </label>
+                                                <input type="file" name="photo"
+                                                       id="photoUpload"
+                                                       class="form-control file-upload-info"
+                                                       accept="image/*"
+                                                       style="display: none;"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary"
+                                            type="submit">Add
+                                    </button>
+                                    <span id="messageArea"
+                                          class="file-upload-info"
+                                          style="display: none;"></span>
+                                    <span id="selectedFileName"
+                                          class="file-upload-info"
+                                          style="display: none;"></span>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+            {% include 'admin/footer.html' %}
+            <!-- partial -->
+        </div>
+
+
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- base:js -->
+<script src="../../static/adminResourses/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page-->
+<!-- End plugin js for this page-->
+<!-- inject:js -->
+<script src="../../static/adminResourses/js/off-canvas.js"></script>
+<script src="../../static/adminResourses/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResourses/js/template.js"></script>
+<script src="../../static/adminResourses/js/settings.js"></script>
+<script src="../../static/adminResourses/js/todolist.js"></script>
+<!-- endinject -->
+<!-- plugin js for this page -->
+<script src="../../static/adminResourses/js/progressbar.min.js"></script>
+<script src="../../static/adminResourses/js/jquery.flot.js"></script>
+<script src="../../static/adminResourses/js/jquery.flot.resize.js"></script>
+<script src="../../static/adminResourses/js/Chart.min.js"></script>
+<!-- End plugin js for this page -->
+<!-- Custom js for this page-->
+<script src="../../static/adminResourses/js/chart.flot.sampledata.js"></script>
+<script src="../../static/adminResourses/js/dashboard.sampledata.js"></script>
+<script src="../../static/adminResourses/js/patternomaly.js"></script>
+<!--<script src="../../static/adminResourses/js/dashboard.js"></script>-->
+<!-- End custom js for this page-->
+
+<script>
+    document.getElementById('photoUpload').addEventListener('change', function () {
+        var fileInput = document.getElementById('photoUpload');
+        var fileName = fileInput.value.split('\\').pop(); // Get the file name
+
+        var textBox = document.querySelector('.form-control[readonly]');
+        textBox.value = fileName;
+    });
+
+    document.getElementById('uploadForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        var fileInput = document.getElementById('photoUpload');
+        var patientNameInput = document.getElementById('patientName').value.trim();
+
+        if (fileInput.files.length === 0) {
+            showMessage('Please select pictures to upload.', 'error');
+            return;
+        }
+
+        if (!patientNameInput) {
+            showMessage('Please enter the patient name.', 'error');
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('patientName', patientNameInput);
+
+        // Loop through each selected file and append it to the FormData object
+        for (var i = 0; i < fileInput.files.length; i++) {
+            var file = fileInput.files[i];
+            formData.append('photo[]', file); // Use an array notation to handle multiple files
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/upload');
+
+        // Show loading spinner or progress bar
+        // You can implement this
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                showMessage('Pictures uploaded successfully.', 'success');
+                // Optionally, reset the form after successful upload
+                document.getElementById('uploadForm').reset();
+                document.querySelector('.form-control[readonly]').value = ''; // Clear the file name
+            } else {
+                var errorMessage = xhr.responseText || 'Error uploading pictures.';
+                showMessage(errorMessage, 'error');
+            }
+        };
+
+        xhr.onerror = function () {
+            showMessage('Error uploading pictures. Please try again later.', 'error');
+        };
+
+        xhr.send(formData);
+    });
+
+    function showMessage(message, type) {
+        var messageArea = document.getElementById('messageArea');
+        messageArea.textContent = message;
+        messageArea.className = 'message ' + type;
+        messageArea.style.display = 'block';
+
+        // Hide the message after a certain period of time (e.g., 3 seconds)
+        setTimeout(function () {
+            messageArea.style.display = 'none';
+        }, 3000);
+    }
+</script>
+</body>
+</html>

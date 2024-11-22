@@ -1,0 +1,43 @@
+<form id="logoutForm" method="post" action="/logout" style="display: none;">
+    <!-- Add any additional hidden input fields if needed -->
+</form>
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/load_dashboard">
+                <i class="mdi mdi-cards-variant menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/detection">
+                <i class="mdi mdi-image-search menu-icon"></i>
+                <!-- Changed icon class here -->
+                <span class="menu-title">Detect</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/audit_table">
+                <i class="mdi mdi-table-large menu-icon"></i>
+                <span class="menu-title">Detection History</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="logout()">
+                <i class="mdi mdi-logout menu-icon lead"></i>
+                <span class="menu-title">Logout</span>
+            </a>
+        </li>
+
+    </ul>
+</nav>
+
+<script>
+    function logout() {
+        document.getElementById("logoutForm").submit();
+    }
+</script>

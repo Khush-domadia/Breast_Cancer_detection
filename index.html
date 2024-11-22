@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Cancer Sense</title>
+    <!-- base:css -->
+    <link rel="stylesheet"
+          href="../../static/adminResourses/css/materialdesignicons.min.css">
+    <link rel="stylesheet"
+          href="../../static/adminResourses/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../static/adminResourses/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon"
+          href="../../static/adminResourses/images/favicon.png"/>
+</head>
+<body class="sidebar-light" style="background-color: #000b1a;">
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+
+    {% include 'admin/header.html' %}
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+
+        {% include 'admin/menu.html' %}
+
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card-body">
+                                <img class="w-100" style="border-radius: 10px"
+                                     src="../../static/adminResourses/images/image_4.png">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card-body">
+                                <h2 class="card-title"><b>AI driven
+                                    breast-cancer classification</b></h2>
+
+                                <p class="text-justify card-subtitle"
+                                   style="font-family: Candara,serif">
+                                    The AI-powered Breast Cancer Classification
+                                    initiative simplifies the process of
+                                    checking for breast cancer online, much
+                                    like a smart assistant. Picture of a
+                                    patient on a user-friendly website where
+                                    you can quickly and simply upload images of
+                                    their mammograms. A unique computer
+                                    program, like to a sophisticated brain,
+                                    starts working behind the scenes as soon as
+                                    you upload them.
+
+                                </p>
+                                <p class="text-justify card-subtitle"
+                                   style="font-family: Candara,serif">
+                                    This intelligent software has been trained
+                                    to interpret mammography images with good
+                                    accuracy. It carefully examines the photos
+                                    that is crucial in determining the
+                                    presence or absence of breast cancer. It
+                                    provides with a result instantaneously
+                                    after seeing the images. This result
+                                    inform whether patient may have cancer or
+                                    not.
+                                </p>
+                                <p class="text-justify card-subtitle"
+                                   style="font-family: Candara,serif">
+                                    Through the use of a straightforward
+                                    website and clever technology, this project
+                                    makes it
+                                    simpler for everyone to maintain
+                                    health.Furthermore, every amount of
+                                    assistance in the fight against breast
+                                    cancer adds up to greater results for all
+                                    parties
+                                    involved.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            {% include 'admin/footer.html' %}
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- base:js -->
+<script src="../../static/adminResourses/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page-->
+<!-- End plugin js for this page-->
+<!-- inject:js -->
+<script src="../../static/adminResourses/js/off-canvas.js"></script>
+<script src="../../static/adminResourses/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResourses/js/template.js"></script>
+<script src="../../static/adminResourses/js/settings.js"></script>
+<script src="../../static/adminResourses/js/todolist.js"></script>
+<!-- endinject -->
+<!-- plugin js for this page -->
+<script src="../../static/adminResourses/js/progressbar.min.js"></script>
+<script src="../../static/adminResourses/js/jquery.flot.js"></script>
+<script src="../../static/adminResourses/js/jquery.flot.resize.js"></script>
+<script src="../../static/adminResourses/js/Chart.min.js"></script>
+<!-- End plugin js for this page -->
+<!-- Custom js for this page-->
+<script src="../../static/adminResourses/js/chart.flot.sampledata.js"></script>
+<script src="../../static/adminResourses/js/dashboard.sampledata.js"></script>
+<script src="../../static/adminResourses/js/patternomaly.js"></script>
+<script src="../../static/adminResourses/js/dashboard.js"></script>
+<!-- End custom js for this page-->
+</body>
+
+<script>
+    document.getElementById("uploadButton").addEventListener("click", function () {
+        var fileInput = document.getElementById('photoUpload');
+        var file = fileInput.files[0];
+        if (file) {
+            var formData = new FormData();
+            formData.append('photo', file);
+
+            // Send the file to the backend using fetch
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // File uploaded successfully
+                        console.log('File uploaded successfully');
+                        // You can do further processing here if needed
+                    } else {
+                        // Handle error
+                        console.error('Error uploading file:', response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error uploading file:', error);
+                });
+        } else {
+            console.error('No file selected');
+        }
+    });
+</script>
+
+
+</html>
+
